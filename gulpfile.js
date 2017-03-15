@@ -13,7 +13,7 @@ const concat = require('gulp-concat')
 const handlers = {}
 
 gulp.task('develop', cb => runSequence('build:clean', 'build:all', cb))
-gulp.task('build:all', cb => runSequence(['build:html', 'build:css', 'build:vendor', 'build:images', 'build:webp', 'build:assets', 'build:fonts', 'build:favicon'], cb))
+gulp.task('build:all', cb => runSequence(['build:html', 'build:css', 'build:vendor', 'build:images', 'build:webp', 'build:assets', 'build:fonts', 'build:fontcss', 'build:favicon'], cb))
 gulp.task('build:clean', buildClean)
 gulp.task('build:html', buildHtml)
 gulp.task('build:css', buildCss)
@@ -22,6 +22,7 @@ gulp.task('build:images', buildImages)
 gulp.task('build:webp', buildWebp)
 gulp.task('build:assets', buildAssets)
 gulp.task('build:fonts', buildFonts)
+gulp.task('build:fontcss', buildFontCss)
 gulp.task('build:favicon', buildFavicon)
 gulp.task('watch', watch)
 
@@ -45,7 +46,7 @@ function buildHtml() {
 }
 
 function buildCss() {
-	gulp.src(['src/dist/css/*.css', 'src/assets/css/src/docs.css'])
+	gulp.src(['src/dist/css/bootstrap.css', 'src/assets/css/src/docs.css', 'src/dist/css/bootstrap-theme.css'])
 		.pipe(plumber())
 		.pipe(sourcemaps.init())
 		.on('error', handlers.onStreamError)
@@ -53,6 +54,16 @@ function buildCss() {
 		.pipe(concat('index.css'))
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest('build/dist/css'))
+}
+
+function buildFontCss() {
+	gulp.src('src/dist/css/fonts.css')
+	.pipe(plumber())
+	.pipe(sourcemaps.init())
+	.on('error', handlers.onStreamError)
+	.pipe(minifyCSS())
+	.pipe(sourcemaps.write('./'))
+	.pipe(gulp.dest('build/dist/css'))
 }
 
 // function buildJs() {
