@@ -6,13 +6,13 @@ const routeStatic = require('./lib/route-static')
 const redirectIndices = require('./lib/redirect-indices')
 
 const app = express()
-const baseDir = 'dist'
+const baseDir = 'build'
 const port = process.env.PORT || 3004
 
 app.use(compression({
 	threshold: 0,
-	filter: () => true, // Compress all assets by default
-}));
+	filter: () => true
+}))
 
 app.set('etag', false)
 app.use((req, res, next) => {

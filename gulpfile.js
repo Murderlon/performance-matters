@@ -13,7 +13,7 @@ const concat = require('gulp-concat')
 const handlers = {}
 
 gulp.task('develop', cb => runSequence('build:clean', 'build:all', cb))
-gulp.task('build:all', ['build:html', 'build:css', 'build:vendor', 'build:images', 'build:webp', 'build:assets', 'build:fonts', 'build:favicon'])
+gulp.task('build:all', cb => runSequence(['build:html', 'build:css', 'build:vendor', 'build:images', 'build:webp', 'build:assets', 'build:fonts', 'build:favicon'], cb))
 gulp.task('build:clean', buildClean)
 gulp.task('build:html', buildHtml)
 gulp.task('build:css', buildCss)
@@ -35,23 +35,24 @@ handlers.onPromiseError = function (error) {
 }
 
 function buildClean() {
-	del.sync('dist')
+	del.sync('build')
 }
 
 function buildHtml() {
 	gulp.src('src/**/*.html')
 		.pipe(htmlmin({collapseWhitespace: true}))
-		.pipe(gulp.dest('dist'))
+		.pipe(gulp.dest('build'))
 }
 
 function buildCss() {
-	gulp.src('src/**/**/*.css')
+	gulp.src(['src/dist/css/*.css', 'src/assets/css/src/docs.css'])
 		.pipe(plumber())
 		.pipe(sourcemaps.init())
 		.on('error', handlers.onStreamError)
 		.pipe(minifyCSS())
+		.pipe(concat('index.css'))
 		.pipe(sourcemaps.write('./'))
-		.pipe(gulp.dest('dist'))
+		.pipe(gulp.dest('build/dist/css'))
 }
 
 // function buildJs() {
@@ -76,34 +77,35 @@ function buildVendor() {
 		.pipe(uglify())
 		.pipe(sourcemaps.write('./'))
 		.on('error', handlers.onStreamError)
-		.pipe(gulp.dest('dist/assets/vendor'))
+		.pipe(gulp.dest('build/assets/vendor'))
 }
 
 function buildImages() {
 	gulp.src(['src/**/*.png', 'src/**/*.jpg', 'src/**/*.jpeg'])
-		.pipe(imagemin())
-		.pipe(gulp.dest('dist'))
+		.pipe(imagemin([imagemin.gifsicle(), imagemin.jpegtran(), imagemin.optipng(), imagemin.svgo()]))
+		.on('error', handlers.onStreamError)
+		.pipe(gulp.dest('build'))
 }
 
 function buildWebp() {
 	gulp.src(['src/**/*.png', 'src/**/*.jpg', 'src/**/*.jpeg'])
 		.pipe(webp())
-		.pipe(gulp.dest('dist'))
+		.pipe(gulp.dest('build'))
 }
 
 function buildAssets() {
 	gulp.src(['src/assets/brand/*.svg', 'src/assets/flash/*.swf'])
-		.pipe(gulp.dest('dist/assets'))
+		.pipe(gulp.dest('build/assets'))
 }
 
 function buildFonts() {
 	gulp.src('src/dist/fonts/*.*')
-		.pipe(gulp.dest('dist/dist/fonts'))
+		.pipe(gulp.dest('build/dist/fonts'))
 }
 
 function buildFavicon() {
 	gulp.src('src/favicon.ico')
-		.pipe(gulp.dest('dist'))
+		.pipe(gulp.dest('build'))
 }
 
 function watch() {
