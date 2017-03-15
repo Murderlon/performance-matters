@@ -5,17 +5,35 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "expose": "ngrok http 3004"
+    "expose": "ngrok http 3004",
+    "build": "gulp develop"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "compression": "^1.6.2",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.3",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-uglify": "^2.1.0",
+    "gulp-webp": "^2.3.0",
     "ngrok": "2.2.6",
-    "nodemon": "1.11.0"
+    "nodemon": "1.11.0",
+    "run-sequence": "^1.2.2",
+    "xo": "^0.17.1"
   },
   "dependencies": {
     "body-parser": "1.15.2",
     "express": "4.14.0",
     "nunjucks": "3.0.0"
+  },
+  "xo": {
+    "semicolon": false
   }
 }
