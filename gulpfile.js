@@ -6,6 +6,7 @@ const minifyCSS = require('gulp-clean-css')
 const runSequence = require('run-sequence')
 const webp = require('gulp-webp')
 const imagemin = require('gulp-imagemin')
+const imageminWebp = require('imagemin-webp')
 const htmlmin = require('gulp-htmlmin')
 const uglify = require('gulp-uglify')
 const concat = require('gulp-concat')
@@ -66,16 +67,6 @@ function buildFontCss() {
 	.pipe(gulp.dest('build/dist/css'))
 }
 
-// function buildJs() {
-// 	gulp.src('src/**/**/*.js')
-// 			.pipe(plumber())
-// 			.pipe(sourcemaps.init())
-// 			.pipe(uglify())
-// 			.pipe(sourcemaps.write('./'))
-// 			.on('error', handlers.onStreamError)
-//       .pipe(gulp.dest('dist'))
-// }
-
 function buildVendor() {
 	gulp.src([
 		'src/assets/js/vendor/jquery.min.js',
@@ -93,7 +84,7 @@ function buildVendor() {
 
 function buildImages() {
 	gulp.src(['src/**/*.png', 'src/**/*.jpg', 'src/**/*.jpeg'])
-		.pipe(imagemin([imagemin.gifsicle(), imagemin.jpegtran(), imagemin.optipng(), imagemin.svgo()]))
+		.pipe(imagemin([imagemin.gifsicle(), imagemin.jpegtran(), imagemin.optipng(), imagemin.svgo(), imageminWebp({quality: 70})]))
 		.on('error', handlers.onStreamError)
 		.pipe(gulp.dest('build'))
 }

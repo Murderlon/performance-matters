@@ -23,6 +23,7 @@
     "gulp-sourcemaps": "^2.4.1",
     "gulp-uglify": "^2.1.0",
     "gulp-webp": "^2.3.0",
+    "imagemin-webp": "^4.0.0",
     "ngrok": "2.2.6",
     "nodemon": "1.11.0",
     "run-sequence": "^1.2.2",
