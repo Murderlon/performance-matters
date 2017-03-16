@@ -18,7 +18,7 @@
 		</script>
 		<script type="text/javascript">
 			if(!sessionStorage.fontsLoaded) {
-		const sourceSansProRegular = new FontFaceObserver('source_sans_pro', {
+				const sourceSansProRegular = new FontFaceObserver('source_sans_pro', {
 					weight: '400',
 					style: 'normal'
 				})
@@ -35,10 +35,10 @@
 					style: 'italic'
 				})
 				Promise.all([
-					sourceSansProRegular.check(),
-					sourceSansProItalic.check(),
-					sourceSansProLight.check(),
-					sourceSansProLightItalic.check()
+					sourceSansProRegular.load(),
+					sourceSansProItalic.load(),
+					sourceSansProLight.load(),
+					sourceSansProLightItalic.load()
 				]).then(function () {
 					document.documentElement.className += ' fonts-loaded'
 					sessionStorage.fontsLoaded = true
@@ -51,7 +51,6 @@
     <link href="/dist/css/index.css" rel="stylesheet">
     {% block head_extra %}{% endblock %}
 </head>
-
 <body {% block body_attributes %}{% endblock %}>
 
     {% block body %}{% endblock %}
