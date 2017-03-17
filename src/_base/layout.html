@@ -4,6 +4,7 @@
     {% include './app-meta.html' %}
 
     <link href="/dist/css/index.css" rel="stylesheet">
+	<script src="./assets/vendor/vendor.min.js" async></script>
 
     {% block head_extra %}{% endblock %}
 </head>
@@ -12,7 +13,6 @@
 
     {% block body %}{% endblock %}
 
-    <script src="./assets/vendor/vendor.min.js"></script>
     {% block scripts_extra %}{% endblock %}
 </body>
 </html>
