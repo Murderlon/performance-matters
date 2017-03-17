@@ -17,7 +17,6 @@
 				z(p,function(a){h=a;u()});t(p,L(c,'"'+c.family+'",monospace'))})})};"undefined"!==typeof module?module.exports=A:(window.FontFaceObserver=A,window.FontFaceObserver.prototype.load=A.prototype.load);}());
 		</script>
 		<script type="text/javascript">
-			if(!sessionStorage.fontsLoaded) {
 				const sourceSansProRegular = new FontFaceObserver('source_sans_pro', {
 					weight: '400',
 					style: 'normal'
@@ -43,9 +42,6 @@
 					document.documentElement.className += ' fonts-loaded'
 					sessionStorage.fontsLoaded = true
 				})
-			} else {
-				document.documentElement.className += ' fonts-loaded'
-			}
 		</script>
 
     <link href="/dist/css/fonts.css" rel="stylesheet">
